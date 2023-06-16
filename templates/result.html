@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Shortener - Result</title>
+    <style>
+        h1 {
+            font-size: 24px;
+        }
+        #short-url {
+            width: 50%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            word-break: break-all;
+        }
+        .copy-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function copyToClipboard() {
+            var copyText = document.getElementById("short-url");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            alert("Copied the URL: " + copyText.value);
+        }
+
+        window.addEventListener("DOMContentLoaded", function() {
+            var port = window.location.port;
+            var shortUrlInput = document.getElementById("short-url");
+            shortUrlInput.value = "http://" + window.location.hostname + ":" + port + "/{{ short_url }}";
+        });
+    </script>
+</head>
+<body>
+    <h1>Shortened URL:</h1>
+    <input type="text" id="short-url" value="http://{{ short_url }}" readonly>
+    <button class="copy-button" onclick="copyToClipboard()">Copy URL</button>
+</body>
+</html>
+
